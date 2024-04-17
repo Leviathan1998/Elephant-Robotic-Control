@@ -1,3 +1,9 @@
+ #I've created a project focused on space tracking and navigation utilizing robotics from Elephant Robotics
+#I employ a camera for environment mapping and obstacle detection. 
+#My aim is to enable the robot to plan optimal routes and navigate around obstacles based on camera input.
+#This project allows me to explore the potential of robotics for autonomous navigation and enhance spatial awareness capabilities.
+
+
 import cv2
 import numpy as np
 from queue import PriorityQueue
