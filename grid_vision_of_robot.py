@@ -20,6 +20,12 @@ triangle_vertices = np.array([[0.5, 0.4], [0.6, 0.2], [0.4, 0.2]])
 triangle = Polygon(triangle_vertices, closed=True, color='yellow', alpha=0.5)
 ax.add_patch(triangle)
 
+# Changes colors of numbers
+ax.tick_params(axis = 'both' , colors = 'green')
+
+# Set the color of the grid to blue
+ax.grid(color='green')
+
 #Setting range of axes for better visualistion 
 ax.set_xlim(0, 1)
 ax.set_ylim(0, 1)
