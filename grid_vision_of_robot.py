@@ -24,7 +24,7 @@ ax.add_patch(triangle)
 ax.tick_params(axis = 'both' , colors = 'green')
 
 # Set the color of the grid to blue
-ax.grid(color='green')
+ax.grid(color = 'green')
 
 #Setting range of axes for better visualistion 
 ax.set_xlim(0, 1)
