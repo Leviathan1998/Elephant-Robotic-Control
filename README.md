@@ -107,3 +107,32 @@ If you provide specific details from the SDK documentation or example methods, I
 - The actual SDK methods for moving the robot (`move_forward`, `move_backward`, `move_left`, `move_right`) should be defined in the `ElephantSDK` class. Adjust the method names and parameters according to the actual SDK documentation if necessary. 
 
 This setup allows you to control the robot in real-time using the keyboard, making it interactive and suitable for quick testing and adjustments.
+
+
+
+
+**mapping.py**
+
+1. **Robot Initialization**:
+   - Added `robot_ip` to the constructor to initialize the connection to the robot.
+   - `self.robot.connect()`: Connect to the robot using the IP address.
+
+2. **Update Map**:
+   - Updated to use `cv2.circle` for marking the robot position and obstacles for better visualization.
+
+3. **Detect Obstacles**:
+   - Fixed the tuple extraction from contours for obstacle detection.
+
+4. **Move Robot**:
+   - Updated to include `self.robot.move_to(new_position[0], new_position[1])`, assuming `move_to` is the correct method from the SDK for moving the robot to specified coordinates.
+   - Adjusted `move_robot` to ensure proper movement commands to the robot.
+
+5. **Camera Handling**:
+   - Added `cap.release()` to release the camera resource when the loop ends.
+
+### Assumptions
+
+- The `ElephantSDK` class from the SDK has methods such as `connect` and `move_to` for robot control.
+- The `move_to` method correctly interprets the coordinates provided for robot movement.
+
+Ensure to replace the method names and functionalities with the correct ones as per the actual Elephant Robotics SDK documentation. If there are specific commands or functions for movement and connection, adjust the code accordingly.
