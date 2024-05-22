@@ -82,3 +82,28 @@ Nezabudnite prispôsobiť kód podľa špecifickej dokumentácie SDK od Elephant
 This code assumes the existence of certain methods in the Elephant Robotics SDK (`pick_block`, `place_block_on_tower`, `remove_block_from_tower`). You'll need to refer to the actual SDK documentation and replace these with the correct method names and parameters provided by Elephant Robotics.
 
 If you provide specific details from the SDK documentation or example methods, I can further tailor the code to match the actual API calls and capabilities of the Elephant Robotics system.
+
+
+
+**control_keaboard.py**
+
+
+1. **Movement Methods**:
+    - Added `move_left` and `move_right` methods to handle lateral movements of the robot.
+
+2. **Keyboard Control Method**:
+    - `control_with_keyboard`: This method continuously checks for key presses. When a WASD key is pressed, the corresponding movement method is called. The `distance` variable defines the distance moved per key press.
+
+3. **Main Control Loop**:
+    - The control loop continuously listens for key presses using `keyboard.is_pressed` and executes the corresponding movement methods.
+    - Pressing 'q' exits the control loop and stops the program.
+
+### Requirements
+
+- Ensure you have the `keyboard` module installed. You can install it using pip:
+  ```bash
+  pip install keyboard
+  ```
+- The actual SDK methods for moving the robot (`move_forward`, `move_backward`, `move_left`, `move_right`) should be defined in the `ElephantSDK` class. Adjust the method names and parameters according to the actual SDK documentation if necessary. 
+
+This setup allows you to control the robot in real-time using the keyboard, making it interactive and suitable for quick testing and adjustments.
