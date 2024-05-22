@@ -60,3 +60,25 @@ Make sure to adjust the code according to the specific SDK documentation provide
     - Vytlačí výsledky.
 
 Nezabudnite prispôsobiť kód podľa špecifickej dokumentácie SDK od Elephant Robotics, vrátane správneho spôsobu pripojenia k robotu a príkazov pre pohyb a čítanie pozícií.
+
+
+**building.py**
+
+
+
+1. **Connecting to the Robot**:
+    - The `__init__` method now takes `robot_ip` as a parameter to initialize the connection to the robot using its IP address.
+    - `self.robot.connect()`: This line assumes there is a method to connect to the robot. Adjust this according to the actual SDK documentation.
+
+2. **Adding a Block**:
+    - `self.robot.pick_block()`: Assumes there is a method in the SDK to pick up a block.
+    - `self.robot.place_block_on_tower(self.tower_height)`: Assumes there is a method to place a block on top of the current tower height.
+
+3. **Removing a Block**:
+    - `self.robot.remove_block_from_tower(self.tower_height - 1)`: Assumes there is a method to remove the top block from the tower.
+
+### Assumptions
+
+This code assumes the existence of certain methods in the Elephant Robotics SDK (`pick_block`, `place_block_on_tower`, `remove_block_from_tower`). You'll need to refer to the actual SDK documentation and replace these with the correct method names and parameters provided by Elephant Robotics.
+
+If you provide specific details from the SDK documentation or example methods, I can further tailor the code to match the actual API calls and capabilities of the Elephant Robotics system.
