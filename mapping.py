@@ -10,15 +10,16 @@ from queue import PriorityQueue
 from elephant_sdk import ElephantSDK
 
 class ElephantRobotNavigation:
-    def __init__(self, map_width, map_height):
-        self.robot = ElephantSDK()
+    def __init__(self, map_width, map_height, robot_ip):
+        self.robot = ElephantSDK(robot_ip)
+        self.robot.connect()  # Assuming there's a connect method to initialize the connection
         self.map = np.zeros((map_height, map_width, 3), dtype=np.uint8)
         self.robot_position = (map_width // 2, map_height // 2)
         self.obstacle_positions = []
 
     def update_map(self):
         self.map = np.zeros_like(self.map)
-        self.map[self.robot_position[1], self.robot_position[0]] = (0, 255, 0)  # Robot position
+        cv2.circle(self.map, self.robot_position, 5, (0, 255, 0), -1)  # Robot position
         for pos in self.obstacle_positions:
             cv2.circle(self.map, pos, 5, (0, 0, 255), -1)  # Obstacle positions
 
@@ -27,12 +28,12 @@ class ElephantRobotNavigation:
         gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
         _, binary = cv2.threshold(gray, 127, 255, cv2.THRESH_BINARY)
         contours, _ = cv2.findContours(binary, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
-        self.obstacle_positions = [tuple(c[0]) for c in contours if cv2.contourArea(c) > 100]
+        self.obstacle_positions = [tuple(c[0][0]) for c in contours if cv2.contourArea(c) > 100]
 
     def plan_path(self, goal_position):
         # Path planning using the A* algorithm
         def heuristic(a, b):
-            return np.sqrt((b[0] - a[0]) ** 2 + (b[1] - a[1]) ** 2)
+            return np.linalg.norm(np.array(b) - np.array(a))
 
         start = self.robot_position
         open_set = PriorityQueue()
@@ -71,12 +72,15 @@ class ElephantRobotNavigation:
             direction = (direction / distance) * step_size
             new_position = tuple(np.round(np.array(self.robot_position) + direction).astype(int))
             self.robot_position = new_position
+            self.robot.move_to(new_position[0], new_position[1])  # Replace with actual SDK command
         else:
             self.robot_position = target_position
+            self.robot.move_to(target_position[0], target_position[1])  # Replace with actual SDK command
 
     def run_navigation(self):
+        cap = cv2.VideoCapture(0)
         while True:
-            ret, frame = cv2.VideoCapture(0).read()
+            ret, frame = cap.read()
             if not ret:
                 print("Unable to read frame from camera.")
                 break
@@ -95,8 +99,11 @@ class ElephantRobotNavigation:
             if cv2.waitKey(1) & 0xFF == ord('q'):
                 break
 
+        cap.release()
         cv2.destroyAllWindows()
 
 # Initialization and running the navigation
-navigation_system = ElephantRobotNavigation(map_width=500, map_height=500)
+robot_ip = "192.168.1.2"  # Replace with the actual IP address of your Elephant Robotics robot
+navigation_system = ElephantRobotNavigation(map_width=500, map_height=500, robot_ip=robot_ip)
 navigation_system.run_navigation()
+
