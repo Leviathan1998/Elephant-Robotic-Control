@@ -77,11 +77,7 @@ Nezabudnite prispôsobiť kód podľa špecifickej dokumentácie SDK od Elephant
 3. **Removing a Block**:
     - `self.robot.remove_block_from_tower(self.tower_height - 1)`: Assumes there is a method to remove the top block from the tower.
 
-### Assumptions
 
-This code assumes the existence of certain methods in the Elephant Robotics SDK (`pick_block`, `place_block_on_tower`, `remove_block_from_tower`). You'll need to refer to the actual SDK documentation and replace these with the correct method names and parameters provided by Elephant Robotics.
-
-If you provide specific details from the SDK documentation or example methods, I can further tailor the code to match the actual API calls and capabilities of the Elephant Robotics system.
 
 
 
@@ -130,9 +126,3 @@ This setup allows you to control the robot in real-time using the keyboard, maki
 5. **Camera Handling**:
    - Added `cap.release()` to release the camera resource when the loop ends.
 
-### Assumptions
-
-- The `ElephantSDK` class from the SDK has methods such as `connect` and `move_to` for robot control.
-- The `move_to` method correctly interprets the coordinates provided for robot movement.
-
-Ensure to replace the method names and functionalities with the correct ones as per the actual Elephant Robotics SDK documentation. If there are specific commands or functions for movement and connection, adjust the code accordingly.
